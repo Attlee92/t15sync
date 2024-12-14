@@ -1,2 +1,4 @@
 átmenetes háttér:
 background: linear-gradient (to right blue,green)
+
+hmmmmm
