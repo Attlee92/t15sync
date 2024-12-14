@@ -1,0 +1,3 @@
+eurojackpot
+Főszámok: 7, 19, 28, 36, 45
+Euro-számok: 2, 9
