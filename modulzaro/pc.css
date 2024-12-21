@@ -1,0 +1,44 @@
+body {
+  font-family: "Verdana", sans-serif;
+}
+.container {
+  width: 1000px;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 10px auto;
+  padding: 50px;
+  border: 1px solid black;
+  box-shadow: 2px 2px 5px black;
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 3px black;
+}
+
+h2 {
+  border-bottom: 2px solid black;
+  padding: 10px;
+  margin: 30px 0 20px 0;
+  background: linear-gradient(to bottom, black, gray, black);
+}
+
+p {
+  text-indent: 20px;
+  text-align: justify;
+}
+
+table thead th {
+  text-align: center;
+  font-style: italic;
+}
+
+img {
+  margin: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
