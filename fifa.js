@@ -66,5 +66,5 @@ console.log(atlagFelettiCsapatok(csapatAdat).join("\n"));
 console.log("Legtöbbet javító csapat:");
 console.log(legtobbetJavito(csapatAdat));
 console.log("Magyarország szerepel-e a listán:", szerepelE(csapatAdat, "Magyarország") ? "Igen" : "Nem");
-console.log("Helyezésváltozás statisztika:");
+
 
