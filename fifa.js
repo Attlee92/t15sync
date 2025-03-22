@@ -58,24 +58,6 @@ function szerepelE(lista, keresettCsapat) {
     return false;
 }
 
-function helyezesValtozasStatisztika(lista) {
-    let statisztika = {};
-    for (let i = 0; i < lista.length; i++) {
-        let valtozas = parseInt(lista[i].split(';')[2]);
-        if (statisztika[valtozas]) {
-            statisztika[valtozas]++;
-        } else {
-            statisztika[valtozas] = 1;
-        }
-    }
-    let eredmeny = [];
-    for (let kulcs in statisztika) {
-        if (statisztika[kulcs] > 1) {
-            eredmeny.push(`${kulcs}: ${statisztika[kulcs]} csapat`);
-        }
-    }
-    return eredmeny;
-}
 
 console.log("Csapatok száma:", csapatokSzama(csapatAdat));
 console.log("Átlagpontszám:", atlagPontszam(csapatAdat).toFixed(2));
@@ -85,4 +67,4 @@ console.log("Legtöbbet javító csapat:");
 console.log(legtobbetJavito(csapatAdat));
 console.log("Magyarország szerepel-e a listán:", szerepelE(csapatAdat, "Magyarország") ? "Igen" : "Nem");
 console.log("Helyezésváltozás statisztika:");
-console.log(helyezesValtozasStatisztika(csapatAdat).join("\n"));
+
