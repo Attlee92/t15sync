@@ -1,40 +1,88 @@
 const csapatAdat = [
-    "Anglia;4;0;1662", "Argentína;10;0;1614", "Belgium;1;0;1752", "Brazília;3;-1;1719", "Chile;17;-3;1576", 
-    "Dánia;14;-1;1584", "Franciaország;2;1;1725", "Hollandia;13;3;1586", "Horvátország;8;-1;1625", "Kolumbia;9;-1;1622", 
-    "Mexikó;12;0;1603", "Németország;16;-1;1580", "Olaszország;15;1;1583", "Peru;19;0;1551", "Portugália;5;1;1643", 
-    "Spanyolország;7;2;1631", "Svájc;11;0;1604", "Svédország;18;0;1560", "Szenegál;20;0;1546", "Uruguay;6;-1;1639"
+    "Anglia;4;0;1662", "Argentína;10;0;1614", "Belgium;1;0;1752", "Brazília;3;-1;1719",
+    "Chile;17;-3;1576", "Dánia;14;-1;1584", "Franciaország;2;1;1725", "Hollandia;13;3;1586",
+    "Horvátország;8;-1;1625", "Kolumbia;9;-1;1622", "Mexikó;12;0;1603", "Németország;16;-1;1580",
+    "Olaszország;15;1;1583", "Peru;19;0;1551", "Portugália;5;1;1643", "Spanyolország;7;2;1631",
+    "Svájc;11;0;1604", "Svédország;18;0;1560", "Szenegál;20;0;1546", "Uruguay;6;-1;1639"
 ];
 
-// 1. Hány csapat szerepel a listán
-console.log("Csapatok száma:", csapatAdat.length);
-
-// 2. Átlagpontszám számítása
-const osszPont = csapatAdat.reduce((sum, csapat) => sum + parseInt(csapat.split(';')[3]), 0);
-const atlagPont = osszPont / csapatAdat.length;
-console.log("Átlagpontszám:", atlagPont.toFixed(2));
-
-// 3. Átlagnál több pontot elért csapatok listázása
-console.log("Átlagnál több pontot szerző csapatok:");
-csapatAdat.forEach(csapat => {
-    const [nev, helyezes, valtozas, pont] = csapat.split(';');
-    if (parseInt(pont) > atlagPont) {
-        console.log(`Csapat: ${nev}, Pontszám: ${pont}`);
-    }
-});
-
-// 5. Magyarország szerepel-e a listán?
-function szerepelE(csapatNev) {
-    return csapatAdat.some(csapat => csapat.startsWith(csapatNev));
+function csapatokSzama(lista) {
+    return lista.length;
 }
-console.log("Magyarország szerepel a listán:", szerepelE("Magyarország"));
 
-// 6. Helyezés változás statisztika
-const statisztika = {};
-csapatAdat.forEach(csapat => {
-    let valtozas = parseInt(csapat.split(';')[2]);
-    statisztika[valtozas] = (statisztika[valtozas] || 0) + 1;
-});
+function atlagPontszam(lista) {
+    let osszPont = 0;
+    for (let i = 0; i < lista.length; i++) {
+        osszPont += parseInt(lista[i].split(';')[3]);
+    }
+    return osszPont / lista.length;
+}
+
+function atlagFelettiCsapatok(lista) {
+    let atlag = atlagPontszam(lista);
+    let eredmeny = [];
+    for (let i = 0; i < lista.length; i++) {
+        let adatok = lista[i].split(';');
+        let nev = adatok[0];
+        let pontszam = parseInt(adatok[3]);
+        if (pontszam > atlag) {
+            eredmeny.push(`${nev} - ${pontszam} pont`);
+        }
+    }
+    return eredmeny;
+}
+
+function legtobbetJavito(lista) {
+    let maxValtozas = -Infinity;
+    let legjobbCsapat = "";
+    for (let i = 0; i < lista.length; i++) {
+        let adatok = lista[i].split(';');
+        let nev = adatok[0];
+        let helyezes = parseInt(adatok[1]);
+        let valtozas = parseInt(adatok[2]);
+        let pontszam = parseInt(adatok[3]);
+        if (valtozas > maxValtozas) {
+            maxValtozas = valtozas;
+            legjobbCsapat = `Helyezés: ${helyezes}, Csapat: ${nev}, Pontszám: ${pontszam}`;
+        }
+    }
+    return legjobbCsapat;
+}
+
+function szerepelE(lista, keresettCsapat) {
+    for (let i = 0; i < lista.length; i++) {
+        if (lista[i].split(';')[0] === keresettCsapat) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function helyezesValtozasStatisztika(lista) {
+    let statisztika = {};
+    for (let i = 0; i < lista.length; i++) {
+        let valtozas = parseInt(lista[i].split(';')[2]);
+        if (statisztika[valtozas]) {
+            statisztika[valtozas]++;
+        } else {
+            statisztika[valtozas] = 1;
+        }
+    }
+    let eredmeny = [];
+    for (let kulcs in statisztika) {
+        if (statisztika[kulcs] > 1) {
+            eredmeny.push(`${kulcs}: ${statisztika[kulcs]} csapat`);
+        }
+    }
+    return eredmeny;
+}
+
+console.log("Csapatok száma:", csapatokSzama(csapatAdat));
+console.log("Átlagpontszám:", atlagPontszam(csapatAdat).toFixed(2));
+console.log("Átlag felett teljesítő csapatok:");
+console.log(atlagFelettiCsapatok(csapatAdat).join("\n"));
+console.log("Legtöbbet javító csapat:");
+console.log(legtobbetJavito(csapatAdat));
+console.log("Magyarország szerepel-e a listán:", szerepelE(csapatAdat, "Magyarország") ? "Igen" : "Nem");
 console.log("Helyezésváltozás statisztika:");
-Object.entries(statisztika).forEach(([valtozas, db]) => {
-    if (db > 1) console.log(`Változás: ${valtozas}, Csapatok száma: ${db}`);
-});
+console.log(helyezesValtozasStatisztika(csapatAdat).join("\n"));
