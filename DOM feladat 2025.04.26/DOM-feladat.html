@@ -27,19 +27,19 @@
 
     <h1>DOM Feladatsor</h1>
 
-    <!-- 1. Feladat: Aktuális szöveghossz -->
+    <!-- 1.Aktuális szöveghossz -->
     <h2>1. Aktuális szöveghossz</h2>
     <input type="text" id="szovegmezo" oninput="karakterSzamlalo()">
     <p id="karakterszam">0 karakter</p>
 
-    <!-- 2. Feladat: Kirajzoló -->
+    <!-- 2.Kirajzoló -->
     <h2>2. Kirajzoló</h2>
     <input type="number" id="xKoordinata" value="100"> X koordináta<br>
     <input type="number" id="yKoordinata" value="100"> Y koordináta<br>
     <button id="kirajzolBtn">Kirajzol</button>
     <div id="rajzterulet"></div>
 
-    <!-- 3. Feladat: Bújócska -->
+    <!-- 3.Bújócska -->
     <h2>3. Bújócska</h2>
     <button id="bujoBtn">Bújócska</button><br>
     <img id="cica" src="hidingCat.jpg" style="width:200px; transition: opacity 5s;" alt="Cica">
@@ -125,7 +125,6 @@
             }
         }
 
-        // Event Listeners
         document.querySelector("#kirajzolBtn").addEventListener("click", negyzetRajzolas);
         document.querySelector("#bujoBtn").addEventListener("click", bujo);
         document.querySelector("#ellenorzoBtn").addEventListener("click", ellenorzes);
