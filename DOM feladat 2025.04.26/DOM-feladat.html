@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Feladatsor</title>
+    <style>
+        #hibauzenet {
+            display: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        #rajzterulet {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border: 1px solid #000;
+            margin-top: 20px;
+        }
+        img {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>DOM Feladatsor</h1>
+
+    <!-- 1. Feladat: Aktuális szöveghossz -->
+    <h2>1. Aktuális szöveghossz</h2>
+    <input type="text" id="szovegmezo" oninput="karakterSzamlalo()">
+    <p id="karakterszam">0 karakter</p>
+
+    <!-- 2. Feladat: Kirajzoló -->
+    <h2>2. Kirajzoló</h2>
+    <input type="number" id="xKoordinata" value="100"> X koordináta<br>
+    <input type="number" id="yKoordinata" value="100"> Y koordináta<br>
+    <button id="kirajzolBtn">Kirajzol</button>
+    <div id="rajzterulet"></div>
+
+    <!-- 3. Feladat: Bújócska -->
+    <h2>3. Bújócska</h2>
+    <button id="bujoBtn">Bújócska</button><br>
+    <img id="cica" src="hidingCat.jpg" style="width:200px; transition: opacity 5s;" alt="Cica">
+
+    <!-- 4. Feladat: Hibaüzenetek -->
+    <h2>4. Hibaüzenetek</h2>
+    <div id="hibauzenet"></div>
+
+    <label for="email">Email cím:</label>
+    <input type="text" id="email"><br>
+
+    <label for="emailMegerosites">Email megerősítése:</label>
+    <input type="text" id="emailMegerosites"><br>
+
+    <button id="ellenorzoBtn">Ellenőrzés</button>
+
+    <!-- JavaScript -->
+    <script>
+        // 1. Feladat
+        function karakterSzamlalo() {
+            const szoveg = document.querySelector("#szovegmezo").value;
+            document.querySelector("#karakterszam").textContent = szoveg.length + " karakter";
+        }
+
+        // 2. Feladat
+        function negyzetRajzolas() {
+            const x = document.querySelector("#xKoordinata").value;
+            const y = document.querySelector("#yKoordinata").value;
+
+            const negyzet = document.createElement("div");
+            negyzet.style.width = "50px";
+            negyzet.style.height = "50px";
+            negyzet.style.backgroundColor = "blue";
+            negyzet.style.position = "absolute";
+            negyzet.style.left = x + "px";
+            negyzet.style.top = y + "px";
+
+            document.querySelector("#rajzterulet").appendChild(negyzet);
+        }
+
+        // 3. Feladat
+        let lathato = true;
+
+        function bujo() {
+            const cica = document.querySelector("#cica");
+            if (lathato) {
+                cica.style.opacity = 0;
+            } else {
+                cica.style.opacity = 1;
+            }
+            lathato = !lathato;
+        }
+
+        // 4. Feladat
+        function validEmail(vizsgalandoEmail){
+            let minta = /^[0-9a-z\.-]+@([0-9a-z-]+\.)+[a-z]{2,4}$/i;
+            return minta.test(vizsgalandoEmail);
+        }
+
+        function ellenorzes() {
+            const email = document.querySelector("#email").value.trim();
+            const emailMegerosites = document.querySelector("#emailMegerosites").value.trim();
+            const hibadoboz = document.querySelector("#hibauzenet");
+
+            function hibauzenet(szoveg, szin) {
+                hibadoboz.style.display = "block";
+                hibadoboz.style.backgroundColor = szin;
+                hibadoboz.textContent = szoveg;
+            }
+
+            if (email === "" && emailMegerosites === "") {
+                hibauzenet("Nincs kitöltve egyik mező sem!", "red");
+            } else if (email === "") {
+                hibauzenet("Nincs kitöltve az e-mail mező!", "orange");
+            } else if (emailMegerosites === "") {
+                hibauzenet("Nincs kitöltve az e-mail megerősítése mező!", "orange");
+            } else if (!validEmail(email)) {
+                hibauzenet("Nem megfelelő az e-mail cím formátuma!", "purple");
+            } else if (email !== emailMegerosites) {
+                hibauzenet("A két mező tartalma nem egyezik!", "pink");
+            } else {
+                hibauzenet("Adatok rögzítése sikeres!", "lightgreen");
+            }
+        }
+
+        // Event Listeners
+        document.querySelector("#kirajzolBtn").addEventListener("click", negyzetRajzolas);
+        document.querySelector("#bujoBtn").addEventListener("click", bujo);
+        document.querySelector("#ellenorzoBtn").addEventListener("click", ellenorzes);
+    </script>
+
+</body>
+</html>
