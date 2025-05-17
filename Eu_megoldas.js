@@ -90,4 +90,5 @@ const euTagok = [
   console.log("Volt-e csatlakozás május hónapban?", voltCsatlakozasAdottHonapban(5) ? "Igen" : "Nem");
   console.log("Az utoljára csatlakozott ország:", utoljaraCsatlakozottOrszag());
   console.log("Csatlakozási statisztika év szerint:", csatlakozasiStatisztika());
+
   
